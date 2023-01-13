@@ -130,8 +130,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## Acknowledgement
 
 Many thanks to the folks behind [RubyTerraform](https://github.com/infrablocks/ruby_terraform/). The project code is a 
-joy to read and it is surprising to find so many unassuming gems like the entirely unexposed [`models` code]
-(https://github.
+joy to read and it is surprising to find so many unassuming gems like the entirely unexposed [`models` code](https://github.
 com/infrablocks/ruby_terraform/tree/main/lib/ruby_terraform/models)! 
 
 ## License
