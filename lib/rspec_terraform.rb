@@ -1,1 +1,3 @@
-require 'rspec/terraform'
+# frozen_string_literal: true
+
+require "rspec/terraform"

@@ -1,4 +1,6 @@
-require_relative 'plan_helpers'
+# frozen_string_literal: true
+
+require_relative "plan_helpers"
 
 RSpec.configure do |config|
   config.add_setting :terraform_binary, default: "/Users/`whoami`/.asdf/shims/terraform"

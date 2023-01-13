@@ -27,6 +27,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  spec.add_dependency "ruby-terraform", "~> 1.7"
   spec.add_dependency "rspec", "~> 3.0"
+  spec.add_dependency "ruby-terraform", "~> 1.7"
 end
