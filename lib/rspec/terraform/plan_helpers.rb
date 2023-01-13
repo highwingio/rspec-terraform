@@ -9,7 +9,7 @@ module RSpec
         end
       end
 
-      def terraform_plan(example_dir)
+      def terraform_plan(example_dir="")
         raw = plan(example_dir) { show(_1) }
         RubyTerraform::Models::Plan.new(JSON.parse(raw.read, symbolize_names: true))
       end
