@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require 'tempfile'
+
 module RSpec
   module Terraform
+    # Module to supply helpers to the rspec context when working with terraform plans
     module PlanHelpers
       def self.included(_mod)
         RubyTerraform.configure do |c|
@@ -10,27 +13,40 @@ module RSpec
         end
       end
 
-      def terraform_plan(example_dir = "")
-        raw = plan(example_dir) { show(_1) }
+      def terraform_init(full_path)
+        RubyTerraform.init(chdir: full_path)
+      end
+
+      # @param example_dir [String] example directory name to run
+      def terraform_plan(example_path = "")
+        full_path = example_path(example_path)
+        terraform_init(full_path)
+
+        raw = create_plan(full_path) { show(full_path, _1) }
         RubyTerraform::Models::Plan.new(JSON.parse(raw.read, symbolize_names: true))
       end
 
       private
 
-      def plan(example_name)
-        Tempfile.create(example_name) do |io|
-          RubyTerraform.plan(chdir: File.join(RSpec.configuration.terraform_examples_dir, example_name), out: io.path)
+      # @param example_name [String] example directory name to run
+      def create_plan(example_path, &block)
+        Tempfile.create(example_path) do |io|
+          RubyTerraform.plan(chdir: example_path, out: io.path)
           yield io
         end
       end
 
-      def show(plan_file)
+      def show(example_path, plan_file)
         raw_plan_output = StringIO.new
         RubyTerraform::Commands::Show.new(stdout: raw_plan_output)
-                                     .execute(path: plan_file.path, json: true)
+                                     .execute(chdir: example_path, path: plan_file.path, json: true)
 
         raw_plan_output.rewind
         raw_plan_output
+      end
+
+      def example_path(example_name)
+        File.join(RSpec.configuration.terraform_examples_dir, example_name)
       end
     end
   end

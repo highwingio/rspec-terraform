@@ -12,4 +12,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.terraform_examples_dir = "./spec/fixtures"
+  config.silence_terraform_output = true
 end
