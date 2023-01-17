@@ -4,7 +4,7 @@ require_relative "lib/rspec/terraform/version"
 
 Gem::Specification.new do |spec|
   spec.name = "rspec-terraform"
-  spec.version = Rspec::Terraform::VERSION
+  spec.version = RSpec::Terraform::VERSION
   spec.authors = ["plukevdh"]
   spec.email = ["luke.vanderhoeven@highwing.io"]
 
