@@ -23,7 +23,6 @@ module RSpec
       # @param [String] example_path example directory name to run
       def terraform_plan(example_path = "")
         full_path = example_path(example_path)
-        terraform_init(full_path)
 
         raw = create_plan(full_path) { show(full_path, _1) }
         RubyTerraform::Models::Plan.new(JSON.parse(raw.read, symbolize_names: true))
