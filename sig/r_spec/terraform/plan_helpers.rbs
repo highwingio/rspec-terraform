@@ -1,0 +1,17 @@
+module RSpec
+  module Terraform
+    module PlanHelpers
+      def terraform_init: -> void
+
+      def terraform_plan: -> RubyTerraform::Models::Plan
+
+      private
+
+      def create_plan: -> void
+
+      def example_path: -> String
+
+      def show: -> StringIO
+    end
+  end
+end

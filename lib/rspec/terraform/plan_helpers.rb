@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'tempfile'
+require "tempfile"
 
 module RSpec
   module Terraform
@@ -13,11 +13,14 @@ module RSpec
         end
       end
 
+      # Run terraform init as needed (automatically called by `terraform_plan`)
+      # @param [String] full_path
       def terraform_init(full_path)
         RubyTerraform.init(chdir: full_path)
       end
 
-      # @param example_dir [String] example directory name to run
+      # Run a terraform plan and return a new Plan object
+      # @param [String] example_path example directory name to run
       def terraform_plan(example_path = "")
         full_path = example_path(example_path)
         terraform_init(full_path)
@@ -28,7 +31,7 @@ module RSpec
 
       private
 
-      # @param example_name [String] example directory name to run
+      # @param [String] example_path example directory name to run
       def create_plan(example_path, &block)
         Tempfile.create(example_path) do |io|
           RubyTerraform.plan(chdir: example_path, out: io.path)
@@ -36,6 +39,8 @@ module RSpec
         end
       end
 
+      # @param [String] example_path directory scope to run terraform within
+      # @param [IO] plan_file IO object to read plan data from
       def show(example_path, plan_file)
         raw_plan_output = StringIO.new
         RubyTerraform::Commands::Show.new(stdout: raw_plan_output)
