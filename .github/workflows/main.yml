@@ -24,5 +24,14 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
+    - name: Setup AWS Sandbox Permissions
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: 'us-east-1'
+        role-to-assume: "arn:aws:iam::337091504159:role/GithubPublicActionsRole"
+        role-duration-seconds: 60
+    - uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.3.7
     - name: Run the default task
       run: bundle exec rake
