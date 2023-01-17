@@ -25,7 +25,7 @@ module RSpec
         full_path = example_path(example_path)
 
         raw = create_plan(full_path) { show(full_path, _1) }
-        RubyTerraform::Models::Plan.new(JSON.parse(raw.read, symbolize_names: true))
+        RubyTerraform::Models::Plan.new(JSON.parse(raw.read.strip.chomp, symbolize_names: true))
       end
 
       private
