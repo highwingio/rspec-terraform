@@ -16,7 +16,6 @@ RSpec.configure do |config|
   config.terraform_examples_dir = "./spec/fixtures"
   config.silence_terraform_output = true
 
-
   include RSpec::Terraform::PlanHelpers
   config.before :suite do
     terraform_init("spec/fixtures/files")
